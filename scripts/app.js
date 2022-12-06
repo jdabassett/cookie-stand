@@ -2,7 +2,7 @@
 'use strict';
 
 // ########## GLOBAL VARIABLES ##########
-let citySection = document.getElementById('citySection');
+let citySection = document.querySelector('#citySection');
 
 // ########## HELPER FUNCTION ##########
 //function to generate random customer number per hour
