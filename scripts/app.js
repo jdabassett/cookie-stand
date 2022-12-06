@@ -2,7 +2,7 @@
 'use strict';
 
 // ########## GLOBAL VARIABLES ##########
-
+let citySection = document.getElementById('citySection');
 
 // ########## HELPER FUNCTION ##########
 //function to generate random customer number per hour
@@ -24,6 +24,7 @@ function sumArray(array){
 let storeSeattle = {
 
   //end of day
+  name: "Seattle",
   minCstHr: 23,
   maxCstHr: 65,
   avrCksCst: 6.3,
@@ -35,7 +36,7 @@ let storeSeattle = {
   arrCstHr: [],
   arrCksHr: [],
 
-  //functions
+  //function for
   mthCstCksHr: function(){
     for (let i = 0; i < this.arrStrHr.length; i++) {
       //custormers each hour
@@ -44,12 +45,43 @@ let storeSeattle = {
       this.arrCksHr[i]=Math.floor(this.arrCstHr[i]*this.avrCksCst);
     }
   },
+
+  //function to sum 
   mthCstCksDy: function(){
+    //sum total customers per day
     if (this.arrCstHr.length >0){
       this.ttlCstDy= sumArray(this.arrCstHr);
     } else {
       this.ttlCstDy=null;
     }
+    //sum total cookies per day
+    if (this.arrCstHr.length >0){
+      this.ttlCksDy= sumArray(this.arrCksHr);
+    } else {
+      this.ttlCksDy=null;
+    }
+  },
+
+  //rendering to html
+  render: function() {
+    let h2Ele = document.createElement('h2');
+    h2Ele.innerText = this.name;
+    citySection.appendChild(h2Ele);
+
+    let ulEle = document.createElement('ul');
+    citySection.appendChild(ulEle);
+
+    for (let i = 0; i<this.arrCksHr.length; i++) {
+      let liEle = document.createElement('li');
+      liEle.innerText = `${this.arrStrHr[i]}: ${this.arrCksHr[i]} cookies`;
+      ulEle.appendChild(liEle);
+    }
+
+    let liEle = document.createElement('li');
+    liEle.innerText = `Total: ${this.ttlCksDy} cookies`;
+    ulEle.appendChild(liEle);
+
+
   },
 };
 
@@ -58,6 +90,8 @@ let storeSeattle = {
 
 storeSeattle.mthCstCksHr();
 storeSeattle.mthCstCksDy();
+storeSeattle.render();
 console.log(storeSeattle.arrCstHr);
 console.log(storeSeattle.arrCksHr);
 console.log(storeSeattle.ttlCstDy);
+console.log(storeSeattle.ttlCksDy);
