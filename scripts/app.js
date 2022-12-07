@@ -1,10 +1,15 @@
 
 'use strict';
 
+
+
 // ########## GLOBAL VARIABLES ##########
 let storeTable = document.querySelector('#storeTable');
 
 let arrayStoreHours = ['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm'];
+
+let arrayStoreTotals = [];
+
 
 
 // ########## HELPER FUNCTION ##########
@@ -21,6 +26,26 @@ function sumArray(array){
     n += array[i];
   }
   return n;
+}
+
+//function to iterate through objects and run methods
+function runObjectMethods(arrayStore){
+  for (let j = 0; j <arrayStore.length; j++){
+    arrayStore[j].mthCstCksHr();
+    arrayStore[j].mthCstCksDy();
+  }
+}
+
+//function to calculate total cookies per hour 
+function hourTotals(arrayStoreHours,arrayStore){
+  arrayStoreTotals.push('Total');
+  for (let i = 0; i<arrayStoreHours.length+1; i++){
+    let n = 0;
+    for (let j = 0; j <arrayStore.length; j++){
+      n += arrayStore[j].arrCksTtl[i];
+    }
+    arrayStoreTotals.push(n);
+  }
 }
 
 //table header function
@@ -47,6 +72,31 @@ function tableHeader(array) {
   rowElement.appendChild(cellElementLast);
 }
 
+//table footer function
+function tableFooter(array) {
+
+  //make row
+  let rowElement = document.createElement('tr');
+  storeTable.appendChild(rowElement);
+
+  //cells
+  for (let i = 0; i<array.length; i++){
+    let cellElement = document.createElement('th');
+    cellElement.innerText= `${array[i]}`;
+    rowElement.appendChild(cellElement);
+  }
+}
+
+//render whole table
+function renderTable(arrayHr,arrayStore,arrayTtl){
+  tableHeader(arrayHr);
+  for (let i = 0; i<arrayStore.length; i++){
+    arrayStore[i].renderRow();
+  }
+  tableFooter(arrayTtl);
+}
+
+
 
 // ########## CONSTRUCTOR OBJECTS ##########
 function SalmonCookieConstructor(name,minCstHr,maxCstHr,avrCksCst, ttlCstDy=0, ttlCksDy=0, arrStrHr=['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm']){
@@ -58,6 +108,7 @@ function SalmonCookieConstructor(name,minCstHr,maxCstHr,avrCksCst, ttlCstDy=0, t
   this.ttlCksDy = ttlCksDy;
   this.arrCstHr = [];
   this.arrCksHr = [];
+  this.arrCksTtl = [];
   this.arrStrHr = arrStrHr;
 }
 
@@ -82,14 +133,14 @@ SalmonCookieConstructor.prototype.mthCstCksDy = function(){
   //sum total cookies per day
   if (this.arrCstHr.length >0){
     this.ttlCksDy= sumArray(this.arrCksHr);
+    this.arrCksTtl = Array.from(this.arrCksHr);
+    this.arrCksTtl.push(this.ttlCksDy);
   } else {
     this.ttlCksDy=null;
   }
 };
 
 SalmonCookieConstructor.prototype.renderRow = function(){
-  this.mthCstCksHr();
-  this.mthCstCksDy();
   //make row
   let rowElement = document.createElement('tr');
   storeTable.appendChild(rowElement);
@@ -122,10 +173,16 @@ let storeDubai = new SalmonCookieConstructor('Dubai',11,38,3.7,0,0);
 let storeParis = new SalmonCookieConstructor('Paris',20,38,2.3,0,0);
 let storeLima = new SalmonCookieConstructor('Lima',2,16,4.6,0,0);
 
+let arrayStoreObject = [storeSeattle,storeTokyo,storeDubai,storeParis,storeLima];
 
-tableHeader(arrayStoreHours);
-storeSeattle.renderRow();
-storeTokyo.renderRow();
-console.log(storeSeattle,storeTokyo);
+//run methods to fill out object information
+runObjectMethods(arrayStoreObject);
+//calculate footer totals
+hourTotals(arrayStoreHours,arrayStoreObject);
+//render table
+renderTable(arrayStoreHours,arrayStoreObject,arrayStoreTotals);
+
+
+console.log(storeSeattle);
 
 
