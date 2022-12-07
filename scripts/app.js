@@ -13,6 +13,7 @@ let arrayStoreTotals = [];
 
 
 // ########## HELPER FUNCTION ##########
+
 //function to generate random customer number per hour
 function rndCstHr (min,max) {
   // source MDN docs
@@ -81,7 +82,7 @@ function tableFooter(array) {
 
   //cells
   for (let i = 0; i<array.length; i++){
-    let cellElement = document.createElement('th');
+    let cellElement = document.createElement('td');
     cellElement.innerText= `${array[i]}`;
     rowElement.appendChild(cellElement);
   }
@@ -89,10 +90,13 @@ function tableFooter(array) {
 
 //render whole table
 function renderTable(arrayHr,arrayStore,arrayTtl){
+  //render table header
   tableHeader(arrayHr);
+  //render store numbers
   for (let i = 0; i<arrayStore.length; i++){
     arrayStore[i].renderRow();
   }
+  //render table footer
   tableFooter(arrayTtl);
 }
 
@@ -167,12 +171,14 @@ SalmonCookieConstructor.prototype.renderRow = function(){
 
 
 // ########## EXECUTABLES ##########
+
+//create all objects
 let storeSeattle = new SalmonCookieConstructor('Seattle',23,65,6.3,0,0);
 let storeTokyo = new SalmonCookieConstructor('Tokyo',3,24,1.2,0,0);
 let storeDubai = new SalmonCookieConstructor('Dubai',11,38,3.7,0,0);
 let storeParis = new SalmonCookieConstructor('Paris',20,38,2.3,0,0);
 let storeLima = new SalmonCookieConstructor('Lima',2,16,4.6,0,0);
-
+//make array of each object
 let arrayStoreObject = [storeSeattle,storeTokyo,storeDubai,storeParis,storeLima];
 
 //run methods to fill out object information
@@ -183,6 +189,6 @@ hourTotals(arrayStoreHours,arrayStoreObject);
 renderTable(arrayStoreHours,arrayStoreObject,arrayStoreTotals);
 
 
-console.log(storeSeattle);
+
 
 
