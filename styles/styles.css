@@ -16,6 +16,7 @@ body {
 /* header */
 header {
   position: relative;
+  height:10vh;
   top:0;
   left:0;
   margin:0;
@@ -24,10 +25,15 @@ header {
   color:var(--dark-orange);
   border-bottom:5px solid var(--dark-red);
   border-top:5px solid var(--dark-red);
+  display:flex;
+  flex-direction:column;
+  justify-content:space-evenly;
 }
 
 h1 {
   text-align:center;
+  font-size:2em;
+  font-weight:bold;
 }
 
 ul {
@@ -41,13 +47,87 @@ a {
   color:var(--tan);
   text-decoration:none;
 }
+/* Image Grid */
+div.grid {
+  width:90vw;
+  max-width: 1000px;
+  max-height: 100px;
+  margin: 30px auto 30px auto;
+  display:flex;
+  flex-direction:row;
+}
 
-/* Image */
-div {
+div.grid img:nth-of-type(1) {
+  border:3px solid var(--dark-blue);
+  overflow:auto;
+}
+
+div.grid img:nth-of-type(2) {
+  border:3px solid var(--yellow);
+  overflow:auto;
+}
+ 
+div.grid img:nth-of-type(3) {
+  border:3px solid var(--dark-red);
+  overflow:auto;
+}
+
+div.grid img:nth-of-type(4) {
+  border:3px solid var(--dark-orange);
+  background-color:white;
+  overflow:auto;
+}
+
+div.grid img:nth-of-type(5) {
+  border:3px solid var(--yellow);
+  overflow:auto;
+}
+
+div.grid img:nth-of-type(6) {
+  border:3px solid var(--dark-red);
+  overflow:auto;
+}
+
+div.grid img:nth-of-type(7) {
+  border:3px solid var(--dark-blue);
+  overflow:auto;
+}
+
+/* store locations */
+div.locations {
+  border:5px solid var(--dark-blue);
+  box-sizing: border-box;
+  width:90vw;
+  margin:30px auto 30px auto;
+  display:flex;
+  flex-direction:row;
+  flex-wrap:wrap;
+  padding:1em;
+  justify-content:center;
+  background-color:var(--dark-red);
+  color:var(--tan);
 
 }
 
-img {
+section.store-locations {
+  border:2px solid var(--tan);
+  margin:1em;
+  padding:0.5em;
+
+}
+section.store-locations h2 {
+  font-size:2em;
+  color:var(--dark-blue);
+  font-weight:bold;
+}
+section.store-locations h3 {
+  font-size:1.25em;
+  text-decoration:underline;
+}
+
+
+/* Sales Image */
+figure img {
   background:radial-gradient(
     circle closest-corner at 50% 50%,
     var(--yellow),
