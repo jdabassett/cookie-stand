@@ -73,6 +73,7 @@ function tableHeader(array) {
   rowElement.appendChild(cellElementLast);
 }
 
+
 //table footer function
 function tableFooter(array) {
 
