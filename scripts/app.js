@@ -137,14 +137,15 @@ function handlerSubmit(event){
 
   //reset form
   newStoreForm.reset();
+  newStoreName.placeholder='Ex. Name';
 }
 
 
 //checking for store duplicate
-function checkForStoreDuplicate(){
+function checkForStoreDuplicate(event){
   let warning = 'New stores must have unique names.';
   for (let i=0; i<arrayStoreObject.length; i++){
-    if(newStoreName.value.toLowerCase()===arrayStoreObject[i].name.toLowerCase()){
+    if(event.target.value.toLowerCase()===arrayStoreObject[i].name.toLowerCase()){
       newStoreName.value="";
       newStoreName.placeholder=warning;
     }
