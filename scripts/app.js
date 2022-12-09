@@ -8,7 +8,9 @@
 let storeTable = document.querySelector('#storeTable');
 
 // select form element
-let newStoreForm = document.querySelector("#newStoreForm");
+let newStoreForm = document.querySelector('#newStoreForm');
+
+let newStoreName = document.querySelector('#newStoreName');
 
 //store hours
 let arrayStoreHours = ['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm'];
@@ -113,13 +115,13 @@ function handlerSubmit(event){
   event.preventDefault();
 
   //gather information from form
-  let newStoreName = event.target.newStoreName.value;
+  let newStoreNameFunc = event.target.newStoreName.value;
   let newMinCst = +event.target.newMinCst.value;
   let newMaxCst = +event.target.newMaxCst.value;
   let newAveCksPerCst = +event.target.newAveCksPerCst.value;
 
   //make new store object, run methods, add to object array
-  let storeNew = new SalmonCookieConstructor(newStoreName,newMinCst,newMaxCst,newAveCksPerCst);
+  let storeNew = new SalmonCookieConstructor(newStoreNameFunc,newMinCst,newMaxCst,newAveCksPerCst);
   storeNew.mthCstCksHr();
   storeNew.mthCstCksDy();
   arrayStoreObject.push(storeNew);
@@ -137,6 +139,17 @@ function handlerSubmit(event){
   newStoreForm.reset();
 }
 
+
+//checking for store duplicate
+function checkForStoreDuplicate(){
+  let warning = 'New stores must have unique names.';
+  for (let i=0; i<arrayStoreObject.length; i++){
+    if(newStoreName.value.toLowerCase()===arrayStoreObject[i].name.toLowerCase()){
+      newStoreName.value="";
+      newStoreName.placeholder=warning;
+    }
+  }
+}
 
 
 // ########## CONSTRUCTOR OBJECTS ##########
@@ -232,7 +245,9 @@ renderTable(arrayStoreHours,arrayStoreObject,arrayStoreTotals);
 
 
 //add event handler to form
-newStoreForm.addEventListener("submit",handlerSubmit);
+newStoreForm.addEventListener('submit',handlerSubmit);
+
+newStoreName.addEventListener('input',checkForStoreDuplicate);
 
 
 
