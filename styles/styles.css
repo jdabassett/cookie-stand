@@ -149,7 +149,6 @@ table {
   margin-left:7vw;
   background:var(--dark-blue);
   color:var(--tan);
-  border-collapse:collapse;
 }
 
 th {
@@ -163,6 +162,32 @@ td {
   padding:5px;
   border:2px solid var(--tan);
 }
+
+/*form*/
+#newStoreForm {
+  width:86vw;
+  margin-left:7vw;
+  margin-top:5vw;
+  color:var(--dark-blue);
+}
+#newStoreField {
+  display:flex;
+  flex-direction:column;
+}
+
+#newStoreField legend {
+  font-size:1.5em;
+  text-align:center;
+  text-decoration:underline;
+
+}
+
+
+
+
+
+
+
 
 
 

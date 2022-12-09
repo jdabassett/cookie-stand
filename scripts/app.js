@@ -4,10 +4,16 @@
 
 
 // ########## GLOBAL VARIABLES ##########
+// select table element
 let storeTable = document.querySelector('#storeTable');
 
+// select form element
+let newStoreForm = document.querySelector("#newStoreForm");
+
+//store hours
 let arrayStoreHours = ['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm'];
 
+// for the last row of table
 let arrayStoreTotals = [];
 
 
@@ -102,6 +108,36 @@ function renderTable(arrayHr,arrayStore,arrayTtl){
 }
 
 
+// event handler for form submission
+function handlerSubmit(event){
+  event.preventDefault();
+
+  //gather information from form
+  let newStoreName = event.target.newStoreName.value;
+  let newMinCst = +event.target.newMinCst.value;
+  let newMaxCst = +event.target.newMaxCst.value;
+  let newAveCksPerCst = +event.target.newAveCksPerCst.value;
+
+  //make new store object, run methods, add to object array
+  let storeNew = new SalmonCookieConstructor(newStoreName,newMinCst,newMaxCst,newAveCksPerCst);
+  storeNew.mthCstCksHr();
+  storeNew.mthCstCksDy();
+  arrayStoreObject.push(storeNew);
+
+  //make new store totals
+  arrayStoreTotals = [];
+  hourTotals(arrayStoreHours,arrayStoreObject);
+
+  //remove row, add new store, add new totals
+  storeTable.deleteRow(-1);
+  storeNew.renderRow();
+  tableFooter(arrayStoreTotals);
+
+  //reset form
+  newStoreForm.reset();
+}
+
+
 
 // ########## CONSTRUCTOR OBJECTS ##########
 function SalmonCookieConstructor(name,minCstHr,maxCstHr,avrCksCst, ttlCstDy=0, ttlCksDy=0, arrStrHr=['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm']){
@@ -170,7 +206,6 @@ SalmonCookieConstructor.prototype.renderRow = function(){
 };
 
 
-
 // ########## EXECUTABLES ##########
 
 //create all objects
@@ -179,16 +214,25 @@ let storeTokyo = new SalmonCookieConstructor('Tokyo',3,24,1.2,0,0);
 let storeDubai = new SalmonCookieConstructor('Dubai',11,38,3.7,0,0);
 let storeParis = new SalmonCookieConstructor('Paris',20,38,2.3,0,0);
 let storeLima = new SalmonCookieConstructor('Lima',2,16,4.6,0,0);
+
 //make array of each object
 let arrayStoreObject = [storeSeattle,storeTokyo,storeDubai,storeParis,storeLima];
 
 //run methods to fill out object information
 runObjectMethods(arrayStoreObject);
+
 //calculate footer totals
 hourTotals(arrayStoreHours,arrayStoreObject);
+
 //render table
 renderTable(arrayStoreHours,arrayStoreObject,arrayStoreTotals);
 
+
+
+
+
+//add event handler to form
+newStoreForm.addEventListener("submit",handlerSubmit);
 
 
 
