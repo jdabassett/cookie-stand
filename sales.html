@@ -5,6 +5,7 @@
     <title>Salmon Cookies Sales</title>
     <link rel="stylesheet" href="styles/reset.css">
     <link rel="stylesheet" href="styles/styles.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
     <script src="scripts/app.js" defer></script>
   </head>
   <body>
@@ -14,7 +15,6 @@
       <nav>
         <ul>
           <li><a href="index.html">HOME</a></li>
-          <li><a href="">PLACEHOLDER</a></li>
         </ul>
       </nav>
     </header>
@@ -26,6 +26,23 @@
     <section>
       <table id="storeTable"></table>
     </section>
+
+    <form id="newStoreForm">
+      <feildset id="newStoreField">
+        <legend>New Store Details:</legend>
+        <label for="newStoreName">Store Name:</label>
+        <input type="text" name="newStoreName" id="newStoreName" required placeholder="Name">
+        <label for="newMinCst">Minimum Customers Per Hour:</label>
+        <input type="number" name="newMinCst" id="newMinCst" required placeholder="0.0">
+        <label for="newMaxCst">Maximum Customers Per Hour:</label>
+        <input type="number" name="newMaxCst" id="newMaxCst" required placeholder="0.0">
+        <label for="newAveCksPerCst">Average Cookies Per Customers Per Hour:</label>
+        <input type="number" name="newAveCksPerCst" id="newAveCksPerCst" required placeholder="0.0">
+        <br>
+        <button type="submit">Submit</button>
+
+      </feildset>
+    </form>
 
     <footer>
       <p>Creator: Jacob Bassett</p>
